@@ -1,5 +1,4 @@
 first_name = "Puttimate"
 last_name = "Jearkpaporn"
+print(first_name + " " + last_name)
 
-Whole_name = first_name + " " + last_name
-print(Whole_name)
