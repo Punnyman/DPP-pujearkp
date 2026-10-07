@@ -1,0 +1,8 @@
+print("Give me the first number: ", end=" ")
+first_number = input()
+print("Give me the second number: ", end=" ")
+second_number = input()
+print(f"{first_number} + {second_number} = {int(first_number) + int(second_number)}.")
+print(f"{first_number} - {second_number} = {int(first_number) - int(second_number)}.")
+print(f"{first_number} / {second_number} = {int(first_number) / int(second_number)}.")
+print(f"{first_number} * {second_number} = {int(first_number) * int(second_number)}.")
