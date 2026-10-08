@@ -1,41 +1,46 @@
 # checkmate.py
-def checkmate(board):
-    rows = board.strip().splitlines()
-    size = len(rows)
 
-    # ตรวจ error: ต้องเป็นสี่เหลี่ยมจัตุรัส
-    if size == 0 or any(len(r) != size for r in rows):
+def checkmate(board): # ตรวจสอบว่ามีการเช็คเมทหรือไม่
+    rows = board.strip().splitlines() # แปลง string เป็น list
+    size = len(rows)  # จำนวน rows
+
+    # ตรวจ error ต้องเป็นสี่เหลี่ยมจัตุรัส
+    if size <= 1 or any(len(r) != size for r in rows): # ขนาดของกระดานต้องมากกว่า 1 และ cols = rows
         print("Error")
         return
 
     # หา King
-    kings = [(r, c) for r in range(size) for c in range(size) if rows[r][c] == 'K']
-    if len(kings) != 1:
+    kings = []
+    for r in range(size): # วนทีละแถว บนไปล่าง
+        for c in range(size): # วนทีละคอลัมน์ในแถวนั้น ซ้ายไปขวา
+            if rows[r][c] == 'K':
+                kings.append((r, c)) # เก็บตำแหน่งเป็น (แถว, คอลัมน์)
+    if len(kings) != 1: # เช็คว่ามี King ตัวเดียว
         print("Error")
         return
     kr, kc = kings[0]
 
-    # 1) Pawn
+    # Pawn
     for dc in (-1, 1):
-        r, c = kr + 1, kc + dc
-        if 0 <= r < size and 0 <= c < size and rows[r][c] == 'P':
+        r, c = kr + 1, kc + dc # r, c ของ pawn ที่กิน King ได้
+        if 0 <= r < size and 0 <= c < size and rows[r][c] == 'P': # ตรวจสอบว่า pawn อยู่ในตำแหน่งที่กิน King ได้และอยู่ในกระดาน
             print("Success")
             return
 
-    # 2) ทิศทางของ Bishop/Rook/Queen
-    diagonals = [(-1,-1), (-1,1), (1,-1), (1,1)]
-    straights = [(-1,0), (1,0), (0,-1), (0,1)]
-
+    # Bishop, Rook, Queen
+    diagonals = [(-1,-1), (-1,1), (1,-1), (1,1)] # ซ้ายบน, ขวาบน, ซ้ายล่าง, ขวาล่าง
+    straights = [(-1,0), (1,0), (0,-1), (0,1)] # บน, ล่าง, ซ้าย, ขวา
+    # ตวรจแต่ละทิศทาง
     def scan(directions, attackers):
         for dr, dc in directions:
-            r, c = kr + dr, kc + dc
+            r, c = kr + dr, kc + dc # ตำแหน่งของking + ทิศทางที่ต้องการตรวจ
             while 0 <= r < size and 0 <= c < size:
-                if rows[r][c] in attackers:
+                if rows[r][c] in attackers: # เจอตัวที่สามารถกิน King ได้
                     return True
-                if rows[r][c] in "PBRQK":   # ติดตัวขวาง
+                if rows[r][c] in "PBRQK":   # ติดตัวขวางที่กินkingไม่ได้
                     break
-                r += dr
-                c += dc
+                r += dr # ก้าวไปช่องถัดไปในทิศเดิม row
+                c += dc # ก้าวไปช่องถัดไปในทิศเดิม column
         return False
 
     if scan(diagonals, "BQ") or scan(straights, "RQ"):
