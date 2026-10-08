@@ -1,7 +1,7 @@
 # checkmate.py
 
 def checkmate(board): # ตรวจสอบว่ามีการเช็คเมทหรือไม่
-    rows = board.strip("\n").splitlines() # แปลง string เป็น list
+    rows = board.strip("\n").splitlines() # ลบ newline หน้าและหลัง แล้วแปลง string เป็น list
     size = len(rows)  # จำนวน rows
 
     # ตรวจ error ต้องเป็นสี่เหลี่ยมจัตุรัส
