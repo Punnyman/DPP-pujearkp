@@ -5,7 +5,7 @@ def checkmate(board): # ตรวจสอบว่ามีการเช็�
     size = len(rows)  # จำนวน rows
 
     # ตรวจ error ต้องเป็นสี่เหลี่ยมจัตุรัส
-    if size <= 1 or any(len(r) != size for r in rows): # ขนาดของกระดานต้องมากกว่า 1 และ cols = rows
+    if size <= 0 or any(len(r) != size for r in rows): # ขนาดของกระดานต้องมากกว่า 1 และ cols = rows
         print("Error")
         return
 
@@ -37,7 +37,7 @@ def checkmate(board): # ตรวจสอบว่ามีการเช็�
             while 0 <= r < size and 0 <= c < size:
                 if rows[r][c] in attackers: # เจอตัวที่สามารถกิน King ได้
                     return True
-                if rows[r][c] in "PBRQK":   # ติดตัวขวางที่กินkingไม่ได้
+                if rows[r][c] in "P B R Q K":   # ติดตัวขวางที่กินkingไม่ได้
                     break
                 r += dr # ก้าวไปช่องถัดไปในทิศเดิม row
                 c += dc # ก้าวไปช่องถัดไปในทิศเดิม column
