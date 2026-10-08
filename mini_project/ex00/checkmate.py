@@ -5,7 +5,7 @@ def checkmate(board): # ตรวจสอบว่ามีการเช็�
     size = len(rows)  # จำนวน rows
 
     # ตรวจ error ต้องเป็นสี่เหลี่ยมจัตุรัส
-    if not (1 <= size <= 8) or any(len(r) != size for r in rows): # ขนาดของกระดานต้องมากกว่า 1 และน้อยกว่าหรือเท่ากับ 8 และ cols = rows
+    if  1 > size or any(len(r) != size for r in rows): # ขนาดของกระดานต้องมากกว่า 1 และน้อยกว่าหรือเท่ากับ 8 และ cols = rows
         print("Error")
         return
 
