@@ -1,11 +1,11 @@
 # checkmate.py
 
-def checkmate(board): # ตรวจสอบว่ามีการเช็คเมทหรือไม่
-    rows = board.strip("\n").splitlines() # ลบ newline หน้าและหลัง แล้วแปลง string เป็น list
-    size = len(rows)  # จำนวน rows
+def checkmate(board): # ตรวจสอบว่ามีการเช็คหรือไม่
+    rows = board.strip("\n").splitlines() # ลบ newline หน้าและหลังของsting แล้วแปลง string เป็น list
+    size = len(rows)
 
-    # ตรวจ error ต้องเป็นสี่เหลี่ยมจัตุรัส
-    if  1 > size or any(len(r) != size for r in rows): # ขนาดของกระดานต้องมากกว่า 1 และน้อยกว่าหรือเท่ากับ 8 และ cols = rows
+    # ตรวจ error บอร์ดต้องเป็นสี่เหลี่ยมจัตุรัส
+    if  1 > size or any(len(r) != size for r in rows): # กระดานน้อยกว่า 1 หรือ cols ไม่เท่ากับ rows 
         print("Error")
         return
 
@@ -14,11 +14,12 @@ def checkmate(board): # ตรวจสอบว่ามีการเช็�
     for r in range(size): # วนทีละแถว บนไปล่าง
         for c in range(size): # วนทีละคอลัมน์ในแถวนั้น ซ้ายไปขวา
             if rows[r][c] == 'K':
-                kings.append((r, c)) # เก็บตำแหน่งเป็น (แถว, คอลัมน์)
+                kings.append((r, c)) # เก็บตำแหน่งเป็น (แถว, คอลัมน์) 
+                
     if not len(kings) == 1: # เช็คว่ามี King ตัวเดียว
         print("Error")
         return
-    kr, kc = kings[0]
+    kr, kc = kings[0] 
 
     # Pawn
     for dc in (-1, 1):
@@ -33,14 +34,14 @@ def checkmate(board): # ตรวจสอบว่ามีการเช็�
     # ตวรจแต่ละทิศทาง
     def scan(directions, attackers):
         for dr, dc in directions:
-            r, c = kr + dr, kc + dc # ตำแหน่งของking + ทิศทางที่ต้องการตรวจ
+            r = kr + dr,c = kc + dc # ตำแหน่งของking + ทิศทางที่ต้องการตรวจ
             while 0 <= r < size and 0 <= c < size:
                 if rows[r][c] in attackers: # เจอตัวที่สามารถกิน King ได้
                     return True
                 if rows[r][c] in "PBRQK":   # ติดตัวขวางที่กินkingไม่ได้
                     break
-                r += dr # ก้าวไปช่องถัดไปในทิศเดิม row
-                c += dc # ก้าวไปช่องถัดไปในทิศเดิม column
+                r += dr # ก้าวไปช่องถัดไปในทิศเดิม row r(ใหม่) = r(เดิม) + dr
+                c += dc # ก้าวไปช่องถัดไปในทิศเดิม column c(ใหม่) = c(เดิม) + dc
         return False
 
     if scan(diagonals, "BQ") or scan(straights, "RQ"):
