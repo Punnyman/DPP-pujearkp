@@ -1,11 +1,11 @@
 # checkmate.py
 
 def checkmate(board): # ตรวจสอบว่ามีการเช็คเมทหรือไม่
-    rows = board.strip().splitlines() # แปลง string เป็น list
+    rows = board.strip("\n").splitlines() # แปลง string เป็น list
     size = len(rows)  # จำนวน rows
 
     # ตรวจ error ต้องเป็นสี่เหลี่ยมจัตุรัส
-    if size <= 0 or any(len(r) != size for r in rows): # ขนาดของกระดานต้องมากกว่า 1 และ cols = rows
+    if not (1 <= size <= 8) or any(len(r) != size for r in rows): # ขนาดของกระดานต้องมากกว่า 1 และน้อยกว่าหรือเท่ากับ 8 และ cols = rows
         print("Error")
         return
 
@@ -15,7 +15,7 @@ def checkmate(board): # ตรวจสอบว่ามีการเช็�
         for c in range(size): # วนทีละคอลัมน์ในแถวนั้น ซ้ายไปขวา
             if rows[r][c] == 'K':
                 kings.append((r, c)) # เก็บตำแหน่งเป็น (แถว, คอลัมน์)
-    if len(kings) != 1: # เช็คว่ามี King ตัวเดียว
+    if not len(kings) == 1: # เช็คว่ามี King ตัวเดียว
         print("Error")
         return
     kr, kc = kings[0]
@@ -37,7 +37,7 @@ def checkmate(board): # ตรวจสอบว่ามีการเช็�
             while 0 <= r < size and 0 <= c < size:
                 if rows[r][c] in attackers: # เจอตัวที่สามารถกิน King ได้
                     return True
-                if rows[r][c] in "P B R Q K":   # ติดตัวขวางที่กินkingไม่ได้
+                if rows[r][c] in "PBRQK":   # ติดตัวขวางที่กินkingไม่ได้
                     break
                 r += dr # ก้าวไปช่องถัดไปในทิศเดิม row
                 c += dc # ก้าวไปช่องถัดไปในทิศเดิม column
