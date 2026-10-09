@@ -34,7 +34,7 @@ def checkmate(board): # ตรวจสอบว่ามีการเช็�
     # ตวรจแต่ละทิศทาง
     def scan(directions, attackers):
         for dr, dc in directions:
-            r = kr + dr,c = kc + dc # ตำแหน่งของking + ทิศทางที่ต้องการตรวจ
+            r, c = kr + dr, kc + dc # ตำแหน่งของking + ทิศทางที่ต้องการตรวจ
             while 0 <= r < size and 0 <= c < size:
                 if rows[r][c] in attackers: # เจอตัวที่สามารถกิน King ได้
                     return True
