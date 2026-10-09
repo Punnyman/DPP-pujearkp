@@ -16,3 +16,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+    
+#cd "D:\Punn\Kosen ปี 1\Coding\DPP-pujearkp\mini_project\ex00"    
