@@ -27,6 +27,14 @@ def checkmate(board): # ตรวจสอบว่ามีการเช็�
         if 0 <= r < size and 0 <= c < size and rows[r][c] == 'P': # ตรวจสอบว่า pawn อยู่ในตำแหน่งที่กิน King ได้และอยู่ในกระดาน
             print("Success")
             return
+        
+    # Horse
+    horse_moves = [(-2,-1), (-2,1), (-1,-2), (-1,2), (1,-2), (1,2), (2,-1), (2,1)]
+    for dr, dc in horse_moves:
+        r, c = kr + dr, kc + dc
+        if 0 <= r < size and 0 <= c < size and rows[r][c] == 'H':
+            print("Success")
+            return
 
     # Bishop, Rook, Queen
     diagonals = [(-1,-1), (-1,1), (1,-1), (1,1)] # ซ้ายบน, ขวาบน, ซ้ายล่าง, ขวาล่าง
@@ -38,7 +46,7 @@ def checkmate(board): # ตรวจสอบว่ามีการเช็�
             while 0 <= r < size and 0 <= c < size:
                 if rows[r][c] in attackers: # เจอตัวที่สามารถกิน King ได้
                     return True
-                if rows[r][c] in "PBRQK":   # ติดตัวขวางที่กินkingไม่ได้
+                if rows[r][c] in "PBHRQK":   # ติดตัวขวางที่กินkingไม่ได้
                     break
                 r += dr # ก้าวไปช่องถัดไปในทิศเดิม row r(ใหม่) = r(เดิม) + dr
                 c += dc # ก้าวไปช่องถัดไปในทิศเดิม column c(ใหม่) = c(เดิม) + dc
